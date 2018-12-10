@@ -1,4 +1,4 @@
-package org.snlab.llvs;
+package org.snlab.llvs.table;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -10,6 +10,10 @@ public class Schema {
   private List<String> meta = new ArrayList<>();
   private List<String> inputs = new ArrayList<>();
   private String output;
+
+  Schema() {
+    this.meta.add("pri");
+  }
 
   public List<String> getMeta() {
     return meta;
@@ -36,7 +40,9 @@ public class Schema {
   }
 
   public void print() {
-    System.out.print("pri | ");
+    for (String m : this.meta) {
+      System.out.print(m + " | ");
+    }
     System.out.print(ansi().fg(Color.GREEN).a(this.output + " | ").reset());
     for (String input : this.inputs) {
       System.out.print(ansi().eraseScreen().fg(Color.RED).a(input + " | ").reset());

@@ -1,15 +1,12 @@
-package org.snlab.llvs;
+package org.snlab.llvs.table;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.fusesource.jansi.Ansi.Color;
 
 public class Table {
-
-
 
   private Schema schema = new Schema();
 
@@ -34,8 +31,12 @@ public class Table {
   public void print() {
     this.schema.print();
     for (Map<String, String> entry : this.entries) {
+      for (String m : this.schema.getMeta()) {
+        System.out.print(entry.get(m) + " ");
+      }
 
-      System.out.print(entry.get("pri") + " " + entry.get(this.schema.getOutput()) + " ");
+      System.out.print(entry.get(this.schema.getOutput()) + " ");
+
       for (String input : this.schema.getInputs()) {
         System.out.print(entry.get(input) + " ");
       }

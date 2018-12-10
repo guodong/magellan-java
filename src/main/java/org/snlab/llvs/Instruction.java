@@ -2,6 +2,7 @@ package org.snlab.llvs;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.snlab.llvs.table.Table;
 
 public class Instruction {
 

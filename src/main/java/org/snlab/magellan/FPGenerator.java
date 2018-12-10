@@ -42,8 +42,7 @@ public class FPGenerator extends Java9BaseVisitor<Variable> {
     Variable rinput = program.newVariable(1);
     Variable output = program.newVariable();
 
-    Instruction instruction = program
-        .newInstruction(this.guardStack.peek(), linput, rinput, output, Algo.CEQ);
+    program.newInstruction(this.guardStack.peek(), linput, rinput, output, Algo.CEQ);
 
     this.guardStack.push(output);
     visit(ctx.statement());
