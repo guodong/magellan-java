@@ -124,7 +124,7 @@ public class Instruction {
         guardFalseEntry.put(this.rinput.getName(), s);
       }
       guardFalseEntry.put(this.output.getName(), "0");
-      this.table.entries.add(guardFalseEntry);
+      this.table.getEntries().add(guardFalseEntry);
     }
 
     Map<String, String> defaultEntry = new HashMap();
@@ -139,19 +139,19 @@ public class Instruction {
       defaultEntry.put(this.rinput.getName(), ss);
     }
     defaultEntry.put(this.output.getName(), "NOP");
-    this.table.entries.add(defaultEntry);
+    this.table.getEntries().add(defaultEntry);
 
   }
 
   public void generateTable() {
     this.table = new Table();
-    table.inputs.add(this.guard.getName());
-    table.inputs.add(this.linput.getName());
+    table.getSchema().getInputs().add(this.guard.getName());
+    table.getSchema().getInputs().add(this.linput.getName());
     if (!this.unary && this.algo != Algo.IN) {
-      table.inputs.add(this.rinput.getName());
+      table.getSchema().getInputs().add(this.rinput.getName());
     }
 
-    table.output = this.output.getName();
+    table.getSchema().setOutput(this.output.getName());
 
     if (this.algo == Algo.CLT) {
       for (int i = this.rinput.getBitwidth(); i > 0; --i) {
@@ -174,7 +174,7 @@ public class Instruction {
           entry.put(this.linput.getName(), s);
           entry.put(this.rinput.getName(), String.valueOf(this.rinput.getValues().get(0)));
           entry.put(this.output.getName(), "1");
-          this.table.entries.add(entry);
+          this.table.getEntries().add(entry);
         }
       }
       this.generateTableDefaultEntry();
@@ -186,7 +186,7 @@ public class Instruction {
         entry.put(this.linput.getName(), "1");
         entry.put(this.rinput.getName(), String.valueOf(val));
         entry.put(this.output.getName(), "1");
-        this.table.entries.add(entry);
+        this.table.getEntries().add(entry);
       }
       this.generateTableDefaultEntry();
     } else if (this.algo == Algo.ASSIGN) {
@@ -197,7 +197,7 @@ public class Instruction {
         entry.put(this.guard.getName(), "1");
         entry.put(this.linput.getName(), String.valueOf(val));
         entry.put(this.output.getName(), String.valueOf(val));
-        this.table.entries.add(entry);
+        this.table.getEntries().add(entry);
       }
       this.generateTableDefaultEntry(false);
     } else if (this.algo == Algo.PLUS) {
@@ -211,7 +211,7 @@ public class Instruction {
           entry.put(this.linput.getName(), String.valueOf(lval));
           entry.put(this.rinput.getName(), String.valueOf(rval));
           entry.put(this.output.getName(), String.valueOf(lval + rval));
-          this.table.entries.add(entry);
+          this.table.getEntries().add(entry);
         }
       }
       this.generateTableDefaultEntry(false);
@@ -222,7 +222,7 @@ public class Instruction {
         entry.put(this.guard.getName(), "1");
         entry.put(this.linput.getName(), String.valueOf(i));
         entry.put(this.output.getName(), "1");
-        this.table.entries.add(entry);
+        this.table.getEntries().add(entry);
       }
       this.generateTableDefaultEntry(true);
     }

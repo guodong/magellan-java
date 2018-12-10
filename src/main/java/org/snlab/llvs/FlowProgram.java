@@ -89,23 +89,7 @@ public class FlowProgram {
   public void printPipeline() {
     System.out.println("+++++++++++ Print PIT Pipeline +++++++++++");
     for (Instruction inst : this.instructions) {
-      System.out.print("pri | ");
-      System.out.print(ansi().fg(Color.GREEN).a(inst.getTable().output + " | ").reset());
-      for (String input : inst.getTable().inputs) {
-        System.out.print(ansi().eraseScreen().fg(Color.RED).a(input + " | ").reset());
-      }
-      System.out.print('\n');
-//      System.out.println(inst.getTable().entries.size());
-
-      // print entries
-      for (Map<String, String> entry : inst.getTable().entries) {
-
-        System.out.print(entry.get("pri") + " " + entry.get(inst.getTable().output) + " ");
-        for (String input : inst.getTable().inputs) {
-          System.out.print(entry.get(input) + " ");
-        }
-        System.out.print('\n');
-      }
+      inst.getTable().print();
       System.out.print('\n');
     }
   }
